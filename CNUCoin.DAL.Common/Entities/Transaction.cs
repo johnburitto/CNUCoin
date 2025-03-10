@@ -1,4 +1,4 @@
-﻿namespace CNUCoin.BLL.Common.Entities
+﻿namespace CNUCoin.DAL.Common.Entities
 {
 	/// <summary>
 	/// Holds information about transaction.
@@ -18,12 +18,12 @@
 		/// <summary>
 		/// Provides information about sender.
 		/// </summary>
-		public Guid From { get; set; }
+		public string? From { get; set; }
 
 		/// <summary>
 		/// Provides information about receiver.
 		/// </summary>
-		public Guid To { get; set; }
+		public string? To { get; set; }
 
 		/// <summary>
 		/// Provides information about transaction hash.
@@ -43,6 +43,6 @@
 		/// <summary>
 		/// Provides information about who is assign transaction.
 		/// </summary>
-		public Guid AssignedBy { get; set; }
+		public string? AssignedBy { get; set; }
 	}
 }

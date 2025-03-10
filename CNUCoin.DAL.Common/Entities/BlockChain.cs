@@ -1,4 +1,4 @@
-﻿namespace CNUCoin.BLL.Common.Entities
+﻿namespace CNUCoin.DAL.Common.Entities
 {
 	/// <summary>
 	/// Holds information about BlockChain.
@@ -13,7 +13,7 @@
 		/// <summary>
 		/// Provides information about miner id.
 		/// </summary>
-		public Guid MinerId { get; set; }
+		public string? MinerId { get; set; }
 
 		/// <summary>
 		/// Provides information about last hash date.
@@ -33,6 +33,6 @@
 		/// <summary>
 		/// Provides information about who is assign block.
 		/// </summary>
-		public Guid BlockAssignedBy { get; set; }
+		public string? BlockAssignedBy { get; set; }
 	}
 }

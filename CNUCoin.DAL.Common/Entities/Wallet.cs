@@ -1,4 +1,4 @@
-﻿namespace CNUCoin.BLL.Common.Entities
+﻿namespace CNUCoin.DAL.Common.Entities
 {
 	/// <summary>
 	/// Holds information about <see cref="Member"/> wallet.
@@ -11,19 +11,9 @@
 		public Guid WalletId { get; set; }
 
 		/// <summary>
-		/// Provides information about transaction date.
+		/// Owner crypto id.
 		/// </summary>
-		public DateTime TransactionDate { get; set; }
-
-		/// <summary>
-		/// Provides information about sender.
-		/// </summary>
-		public Guid From {  get; set; }
-		
-		/// <summary>
-		/// Provides information about receiver.
-		/// </summary>
-		public Guid To { get; set; }
+		public string? OwnerCryptoId { get; set; }
 
 		/// <summary>
 		/// Provides information about transaction amount.

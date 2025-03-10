@@ -1,4 +1,4 @@
-﻿namespace CNUCoin.BLL.Common.Entities
+﻿namespace CNUCoin.DAL.Common.Entities
 {
 	/// <summary>
 	/// Holds information about member of system.
