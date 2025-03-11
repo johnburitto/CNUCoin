@@ -14,10 +14,12 @@ namespace CNUCoin.DAL.Configurations
 		public void Configure(EntityTypeBuilder<Member> builder)
 		{
 			builder.Property(m => m.MemberId)
-				.ValueGeneratedOnAdd()
 				.IsRequired();
 
-			builder.Property(m => m.MemberCryptoId)
+			builder.Property(m => m.Username)
+				.IsRequired();
+
+			builder.Property(m => m.Password)
 				.IsRequired();
 
 			builder.Property(m => m.PublicKey)
@@ -25,6 +27,10 @@ namespace CNUCoin.DAL.Configurations
 
 			builder.Property(m => m.IsMiner)
 				.IsRequired();
+
+			builder.HasOne(m => m.Wallet)
+				.WithOne(w => w.Owner)
+				.HasForeignKey<Wallet>(w => w.OwnerId);
 		}
 	}
 }

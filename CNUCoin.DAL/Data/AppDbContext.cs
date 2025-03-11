@@ -18,11 +18,6 @@ namespace CNUCoin.DAL.Data
 		public DbSet<Member> Members { get; set; }
 
 		/// <summary>
-		/// Repository for entity <see cref="KeyPair"/>.
-		/// </summary>
-		public DbSet<KeyPair> KeyPairs { get; set; }
-
-		/// <summary>
 		/// Repository for entity <see cref="Wallet"/>.
 		/// </summary>
 		public DbSet<Wallet> Wallets { get; set; }
@@ -33,9 +28,9 @@ namespace CNUCoin.DAL.Data
 		public DbSet<Transaction> Transactions { get; set; }
 
 		/// <summary>
-		/// Repository for entity <see cref="BlockChain"/>.
+		/// Repository for entity <see cref="Block"/>.
 		/// </summary>
-		public DbSet<BlockChain> BlockChains { get; set; }
+		public DbSet<Block> Blocks { get; set; }
 
 		#endregion
 
@@ -60,10 +55,9 @@ namespace CNUCoin.DAL.Data
 			base.OnModelCreating(modelBuilder);
 
 			modelBuilder.ApplyConfiguration(new MemberConfiguration());
-			modelBuilder.ApplyConfiguration(new KeyPairConfiguration());
 			modelBuilder.ApplyConfiguration(new WalletConfiguration());
 			modelBuilder.ApplyConfiguration(new TransactionConfiguration());
-			modelBuilder.ApplyConfiguration(new BlockChainConfiguration());
+			modelBuilder.ApplyConfiguration(new BlockConfiguration());
 		}
 
 		#endregion

@@ -17,7 +17,7 @@ namespace CNUCoin.DAL.Configurations
 				.ValueGeneratedOnAdd()
 				.IsRequired();
 
-			builder.Property(w => w.OwnerCryptoId)
+			builder.Property(w => w.OwnerId)
 				.IsRequired();
 
 			builder.Property(w => w.Amount)

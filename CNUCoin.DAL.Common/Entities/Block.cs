@@ -3,12 +3,14 @@
 	/// <summary>
 	/// Holds information about BlockChain.
 	/// </summary>
-	public class BlockChain
+	public class Block
 	{
+		#region Properties
+
 		/// <summary>
 		/// Provides information about block chain id.
 		/// </summary>
-		public Guid BlockChainId { get; set; }
+		public Guid BlockId { get; set; }
 		
 		/// <summary>
 		/// Provides information about miner id.
@@ -33,6 +35,22 @@
 		/// <summary>
 		/// Provides information about who is assign block.
 		/// </summary>
-		public string? BlockAssignedBy { get; set; }
+		public string? AssignedById { get; set; }
+
+		#endregion
+
+		#region Relations
+
+		/// <summary>
+		/// Provides information about miner.
+		/// </summary>
+		public Member? Miner { get; set; }
+
+		/// <summary>
+		/// Provides information about who is assign block. Object.
+		/// </summary>
+		public Member? AssignedBy { get; set; }
+
+		#endregion
 	}
 }

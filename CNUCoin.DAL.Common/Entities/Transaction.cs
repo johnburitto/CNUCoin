@@ -5,6 +5,8 @@
 	/// </summary>
 	public class Transaction
 	{
+		#region Properties
+
 		/// <summary>
 		/// Provides information about transaction id.
 		/// </summary>
@@ -16,14 +18,14 @@
 		public DateTime TransactionDate { get; set; }
 
 		/// <summary>
-		/// Provides information about sender.
+		/// Provides information about sender id.
 		/// </summary>
-		public string? From { get; set; }
+		public string? FromId { get; set; }
 
 		/// <summary>
-		/// Provides information about receiver.
+		/// Provides information about receiver id.
 		/// </summary>
-		public string? To { get; set; }
+		public string? ToId { get; set; }
 
 		/// <summary>
 		/// Provides information about transaction hash.
@@ -43,6 +45,27 @@
 		/// <summary>
 		/// Provides information about who is assign transaction.
 		/// </summary>
-		public string? AssignedBy { get; set; }
+		public string? AssignedById { get; set; }
+
+		#endregion
+
+		#region Relations
+
+		/// <summary>
+		/// Provides information about sender.
+		/// </summary>
+		public Member? From { get; set; }
+
+		/// <summary>
+		/// Provides information about receiver.
+		/// </summary>
+		public Member? To { get; set; }
+
+		/// <summary>
+		/// Provides information about who is assign transaction. Object.
+		/// </summary>
+		public Member? AssignedBy { get; set; }
+
+		#endregion
 	}
 }

@@ -5,19 +5,32 @@
 	/// </summary>
 	public class Wallet
 	{
+		#region Properties
+
 		/// <summary>
 		/// Provides information about wallet id.
 		/// </summary>
 		public Guid WalletId { get; set; }
 
 		/// <summary>
-		/// Owner crypto id.
+		/// Provides information about owner id.
 		/// </summary>
-		public string? OwnerCryptoId { get; set; }
+		public string? OwnerId { get; set; }
 
 		/// <summary>
 		/// Provides information about transaction amount.
 		/// </summary>
 		public int Amount { get; set; }
+
+		#endregion
+
+		#region Relations
+
+		/// <summary>
+		/// Provides information about owner.
+		/// </summary>
+		public Member? Owner { get; set; }
+
+		#endregion
 	}
 }

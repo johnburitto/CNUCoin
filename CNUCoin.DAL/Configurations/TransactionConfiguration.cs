@@ -20,10 +20,10 @@ namespace CNUCoin.DAL.Configurations
 			builder.Property(t => t.TransactionDate)
 				.IsRequired();
 
-			builder.Property(t => t.From)
+			builder.Property(t => t.FromId)
 				.IsRequired();
 
-			builder.Property(t => t.To)
+			builder.Property(t => t.ToId)
 				.IsRequired();
 
 			builder.Property(t => t.Hash)
@@ -35,8 +35,23 @@ namespace CNUCoin.DAL.Configurations
 			builder.Property(t => t.Approved)
 				.IsRequired();
 
-			builder.Property(t => t.AssignedBy)
+			builder.Property(t => t.AssignedById)
 				.IsRequired();
+
+			builder.HasOne(t => t.From)
+				.WithMany(m => m.TransactionsFrom)
+				.HasForeignKey(t => t.FromId)
+				.OnDelete(DeleteBehavior.ClientSetNull);
+
+			builder.HasOne(t => t.To)
+				.WithMany(m => m.TransactionsTo)
+				.HasForeignKey(t => t.ToId)
+				.OnDelete(DeleteBehavior.ClientSetNull);
+
+			builder.HasOne(t => t.AssignedBy)
+				.WithMany(m => m.TransactionsAssigned)
+				.HasForeignKey(t => t.AssignedById)
+				.OnDelete(DeleteBehavior.ClientSetNull);
 		}
 	}
 }
