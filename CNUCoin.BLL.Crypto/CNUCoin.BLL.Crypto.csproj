@@ -6,9 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\CNUCoin.BLL.Crypto\CNUCoin.BLL.Crypto.csproj" />
-    <ProjectReference Include="..\CNUCoin.DAL\CNUCoin.DAL.csproj" />
-  </ItemGroup>
-
 </Project>
