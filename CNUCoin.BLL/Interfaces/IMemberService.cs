@@ -12,8 +12,8 @@ namespace CNUCoin.BLL.Interfaces
 		/// Register member into system.
 		/// </summary>
 		/// <param name="dto">Dto that holds all needed information for register.</param>
-		/// <returns>Returns generated crypto id of created memeber.</returns>
-		Task<string> RegisterAsync(RegisterDto dto);
+		/// <returns>Returns generated crypto id of created memeber, and his public, private keys.</returns>
+		Task<(string, string, string)> RegisterAsync(RegisterDto dto);
 
 		/// <summary>
 		/// Logins user into system.

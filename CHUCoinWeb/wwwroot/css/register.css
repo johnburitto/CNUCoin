@@ -1,0 +1,119 @@
+﻿body {
+	margin: 0;
+	padding: 0;
+	font-family: 'Arial', sans-serif;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	background-color: #000;
+}
+
+.register-container {
+	background-color: #1a1a1a;
+	padding: 40px;
+	border-radius: 12px;
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+	width: 450px;
+	text-align: center;
+}
+
+.register-container h2 {
+	color: #FFD700;
+	margin-bottom: 20px;
+	font-weight: bold;
+}
+
+.register-container input[type="text"],
+.register-container input[type="password"] {
+	width: 100%;
+	padding: 10px;
+	margin: 10px 0;
+	border: 2px solid #FFD700;
+	border-radius: 6px;
+	background-color: #333;
+	color: #fff;
+	font-size: 16px;
+	font-weight: bold;
+	box-sizing: border-box;
+	transition: border-color 0.3s;
+}
+
+.register-container input[type="text"]:focus,
+.register-container input[type="password"]:focus {
+	border-color: #FFC107;
+	border: solid 2px #FFC107;
+	outline: none;
+}
+
+.miner-checkbox {
+	display: flex;
+	align-items: center;
+	margin: 10px 0;
+	color: #FFD700;
+	font-weight: bold;
+}
+
+.miner-checkbox input[type="checkbox"] {
+	display: none;
+}
+
+.miner-checkbox label {
+	position: relative;
+	padding-left: 30px;
+	cursor: pointer;
+}
+
+.miner-checkbox label::before {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 20px;
+	height: 20px;
+	border: 2px solid #FFD700;
+	border-radius: 4px;
+	background-color: #333;
+	transition: background-color 0.3s;
+}
+
+.miner-checkbox input[type="checkbox"]:checked + label::before {
+	background-color: #FFD700;
+}
+
+.miner-checkbox input[type="checkbox"]:checked + label::after {
+	content: '✓';
+	position: absolute;
+	left: 3px;
+	color: black;
+	font-size: 18px;
+}
+
+input[type="submit"] {
+	background-color: #FFD700;
+	color: black;
+	border: none;
+	cursor: pointer;
+	padding: 10px;
+	border-radius: 6px;
+	font-weight: bold;
+	width: 100%;
+	transition: background-color 0.3s, transform 0.2s;
+	margin-top: 15px;
+}
+
+input[type="submit"]:hover {
+	background-color: #FFC107;
+}
+
+.login-link {
+	margin-top: 20px;
+	color: #FFD700;
+	text-decoration: none;
+	display: block;
+}
+
+.login-link:hover {
+	text-decoration: underline;
+}

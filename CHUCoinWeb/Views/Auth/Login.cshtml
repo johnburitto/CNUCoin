@@ -1,0 +1,15 @@
+﻿@model LoginModel
+
+<link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
+
+<div class="login-container">
+    <h2>Login to CNHUCoin</h2>
+    <form action="#" method="POST" enctype="multipart/form-data">
+        <input type="file" name="PublicKeyFile" id="PublicKeyFile" accept=".pub" required>
+        <input type="password" name="Password" id="Password" placeholder="Password" required>
+        <div class="button-container">
+            <input type="submit" value="Login">
+            <button type="button" class="register-button" onclick="location.href='/Auth/Register'">Register</button>
+        </div>
+    </form>
+</div>

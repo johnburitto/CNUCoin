@@ -1,0 +1,33 @@
+﻿@model RegisterDto
+
+<link rel="stylesheet" href="~/css/register.css" asp-append-version="true" />
+<script src="~/js/sweetalert2.all.min.js"></script>
+
+<div class="register-container">
+    <h2>Register to CNHUCoin</h2>
+    <form method="POST">
+        <input type="text" name="Username" id="Username" placeholder="Username" required>
+        <input type="password" name="Password" id="Password" placeholder="Password" required>
+        <div class="miner-checkbox">
+            <input type="checkbox" name="IsMiner" id="IsMiner">
+            <label for="IsMiner">Is Miner?</label>
+        </div>
+        <input type="submit" id="register-button" value="Register">
+    </form>
+    <a href="/Auth/Login" class="login-link">Already have an account? Login</a>
+</div>
+
+<script>
+    document.getElementById("register-button").addEventListener("click", function () {
+        Swal.fire({
+            title: "Alert!",
+            text: "Press 'OK' after keys downloading!",
+            icon: "info",
+            confirmButtonText: "OK",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/Auth/Login"
+            }
+        });
+    });
+</script>

@@ -32,6 +32,7 @@ namespace CNUCoin.BLL.Implementations
 		/// <summary>
 		/// Inizialise instance of <see cref="MemberService"/>.
 		/// </summary>
+		/// <param name="context">App db context.</param>
 		/// <param name="cryptoService">Crypto service.</param>
 		public MemberService(AppDbContext context, ICryptoService cryptoService)
 		{
@@ -52,10 +53,10 @@ namespace CNUCoin.BLL.Implementations
 		}
 
 		/// <inheritdoc/>
-		public async Task<string> RegisterAsync(RegisterDto dto)
+		public async Task<(string, string, string)> RegisterAsync(RegisterDto dto)
 		{
 			var member = new Member();
-			(var publicKey, var _) = _cryptoService.GenerateRsaKeys();
+			(var publicKey, var privateKey) = _cryptoService.GenerateRsaKeys();
 
 			member.MemberId = _cryptoService.Sha256Hash(publicKey);
 			member.PublicKey = publicKey;
@@ -66,7 +67,7 @@ namespace CNUCoin.BLL.Implementations
 			await _context.Members.AddAsync(member);
 			await _context.SaveChangesAsync();
 
-			return member.MemberId;
+			return (member.MemberId, publicKey, privateKey);
 		}
 
 		#endregion

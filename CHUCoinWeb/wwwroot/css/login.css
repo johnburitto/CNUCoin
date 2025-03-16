@@ -1,0 +1,89 @@
+﻿body {
+	margin: 0;
+	padding: 0;
+	font-family: 'Arial', sans-serif;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	background-color: #000;
+}
+
+.login-container {
+	background-color: #1a1a1a;
+	padding: 40px;
+	border-radius: 12px;
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+	width: 450px;
+	text-align: center;
+}
+
+.login-container h2 {
+	color: #FFD700;
+	margin-bottom: 20px;
+	font-weight: bold;
+}
+
+.login-container input[type="file"],
+.login-container input[type="password"] {
+	width: 100%;
+	padding: 10px;
+	margin: 10px 0;
+	border: 2px solid #FFD700;
+	border-radius: 6px;
+	background-color: #333;
+	color: #fff;
+	font-size: 16px;
+	font-weight: bold;
+	box-sizing: border-box;
+	transition: border-color 0.3s;
+}
+
+.login-container input[type="file"] {
+	appearance: none;
+	cursor: pointer;
+}
+
+.login-container input[type="file"]::-webkit-file-upload-button {
+	background-color: #FFD700;
+	color: black;
+	border: none;
+	border-radius: 6px;
+	cursor: pointer;
+	padding: 10px;
+	font-weight: bold;
+}
+
+.login-container input[type="file"]::-webkit-file-upload-button:hover {
+	background-color: #FFC107;
+}
+
+.login-container input[type="password"]:focus {
+	border-color: #FFC107;
+	border: solid 2px #FFC107;
+	outline: none;
+}
+
+.button-container {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 15px;
+}
+
+input[type="submit"],
+.register-button {
+	background-color: #FFD700;
+	color: black;
+	border: none;
+	cursor: pointer;
+	padding: 10px;
+	border-radius: 6px;
+	font-weight: bold;
+	width: 48%;
+	transition: background-color 0.3s, transform 0.2s;
+}
+
+input[type="submit"]:hover,
+.register-button:hover {
+	background-color: #FFC107;
+}
