@@ -4,6 +4,7 @@ using CNUCoin.DAL.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CNUCoin.DAL.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250325185008_SchemaFix")]
+    partial class SchemaFix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -28,7 +31,7 @@ namespace CNUCoin.DAL.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("BlockHash")
+                    b.Property<string>("BlockChainHash")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -40,10 +43,6 @@ namespace CNUCoin.DAL.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Nonce")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PreviousBlockHash")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -85,17 +84,13 @@ namespace CNUCoin.DAL.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<float>("Amount")
+                    b.Property<float>("Anout")
                         .HasColumnType("real");
 
                     b.Property<bool>("Approved")
                         .HasColumnType("bit");
 
-                    b.Property<Guid>("BlockId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<byte[]>("ECP")
-                        .IsRequired()
                         .HasColumnType("varbinary(max)");
 
                     b.Property<string>("Hash")
@@ -114,8 +109,6 @@ namespace CNUCoin.DAL.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("TransactionId");
-
-                    b.HasIndex("BlockId");
 
                     b.HasIndex("ReceiverId");
 
@@ -157,26 +150,19 @@ namespace CNUCoin.DAL.Data.Migrations
 
             modelBuilder.Entity("CNUCoin.DAL.Common.Entities.Transaction", b =>
                 {
-                    b.HasOne("CNUCoin.DAL.Common.Entities.Block", "Block")
-                        .WithMany("Transactions")
-                        .HasForeignKey("BlockId")
-                        .IsRequired();
-
-                    b.HasOne("CNUCoin.DAL.Common.Entities.Member", "Receiver")
+                    b.HasOne("CNUCoin.DAL.Common.Entities.Member", "To")
                         .WithMany("TransactionsReceived")
                         .HasForeignKey("ReceiverId")
                         .IsRequired();
 
-                    b.HasOne("CNUCoin.DAL.Common.Entities.Member", "Sender")
+                    b.HasOne("CNUCoin.DAL.Common.Entities.Member", "From")
                         .WithMany("TransactionsSent")
                         .HasForeignKey("SenderId")
                         .IsRequired();
 
-                    b.Navigation("Block");
+                    b.Navigation("From");
 
-                    b.Navigation("Receiver");
-
-                    b.Navigation("Sender");
+                    b.Navigation("To");
                 });
 
             modelBuilder.Entity("CNUCoin.DAL.Common.Entities.Wallet", b =>
@@ -188,11 +174,6 @@ namespace CNUCoin.DAL.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Owner");
-                });
-
-            modelBuilder.Entity("CNUCoin.DAL.Common.Entities.Block", b =>
-                {
-                    b.Navigation("Transactions");
                 });
 
             modelBuilder.Entity("CNUCoin.DAL.Common.Entities.Member", b =>

@@ -25,17 +25,17 @@
 		/// <summary>
 		/// Provides information about block chain hash.
 		/// </summary>
-		public string? BlockChainHash { get; set; }
+		public string? BlockHash { get; set; }
+
+		/// <summary>
+		/// Provides information about previous block chain hash.
+		/// </summary>
+		public string? PreviousBlockHash { get; set; }
 
 		/// <summary>
 		/// Provides information about 'salt'.
 		/// </summary>
 		public string? Nonce { get; set; }
-
-		/// <summary>
-		/// Provides information about who is assign block.
-		/// </summary>
-		public string? AssignedById { get; set; }
 
 		#endregion
 
@@ -47,9 +47,9 @@
 		public Member? Miner { get; set; }
 
 		/// <summary>
-		/// Provides information about who is assign block. Object.
+		/// Provides information about transactions in block.
 		/// </summary>
-		public Member? AssignedBy { get; set; }
+		public List<Transaction>? Transactions { get; set; }
 
 		#endregion
 	}

@@ -13,6 +13,11 @@
 		public Guid TransactionId { get; set; }
 
 		/// <summary>
+		/// Provides information about block, where transaction is chained.
+		/// </summary>
+		public Guid BlockId { get; set; }
+
+		/// <summary>
 		/// Provides information about transaction date.
 		/// </summary>
 		public DateTime TransactionDate { get; set; }
@@ -20,12 +25,12 @@
 		/// <summary>
 		/// Provides information about sender id.
 		/// </summary>
-		public string? FromId { get; set; }
+		public string? SenderId { get; set; }
 
 		/// <summary>
 		/// Provides information about receiver id.
 		/// </summary>
-		public string? ToId { get; set; }
+		public string? ReceiverId { get; set; }
 
 		/// <summary>
 		/// Provides information about transaction hash.
@@ -33,19 +38,19 @@
 		public string? Hash { get; set; }
 
 		/// <summary>
-		/// Provides information about 'salt'.
-		/// </summary>
-		public string? Nonce { get; set; }
-
-		/// <summary>
 		/// Provides information whether transaction is approved or not.
 		/// </summary>
 		public bool Approved { get; set; }
 
 		/// <summary>
-		/// Provides information about who is assign transaction.
+		/// Provides information about transaction amount.
 		/// </summary>
-		public string? AssignedById { get; set; }
+		public float Amount { get; set; }
+
+		/// <summary>
+		/// Provides information about  sender signature.
+		/// </summary>
+		public byte[]? ECP { get; set; }
 
 		#endregion
 
@@ -54,17 +59,17 @@
 		/// <summary>
 		/// Provides information about sender.
 		/// </summary>
-		public Member? From { get; set; }
+		public Member? Sender { get; set; }
 
 		/// <summary>
 		/// Provides information about receiver.
 		/// </summary>
-		public Member? To { get; set; }
+		public Member? Receiver { get; set; }
 
 		/// <summary>
-		/// Provides information about who is assign transaction. Object.
+		/// Provides information about block, where transaction is chained. Object.
 		/// </summary>
-		public Member? AssignedBy { get; set; }
+		public Block? Block { get; set; }
 
 		#endregion
 	}

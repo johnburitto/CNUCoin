@@ -21,7 +21,7 @@ namespace CNUCoin.BLL.Crypto.Implementations
 		public (string, string) GenerateRsaKeys()
 		{
 			using var rsa = RSA.Create(RSA_KEY_LENGTH);
-			
+
 			return (Convert.ToBase64String(rsa.ExportSubjectPublicKeyInfo()),
 				Convert.ToBase64String(rsa.ExportPkcs8PrivateKey()));
 		}

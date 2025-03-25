@@ -20,37 +20,37 @@ namespace CNUCoin.DAL.Configurations
 			builder.Property(t => t.TransactionDate)
 				.IsRequired();
 
-			builder.Property(t => t.FromId)
+			builder.Property(t => t.SenderId)
 				.IsRequired();
 
-			builder.Property(t => t.ToId)
+			builder.Property(t => t.ReceiverId)
 				.IsRequired();
 
 			builder.Property(t => t.Hash)
 				.IsRequired();
 
-			builder.Property(t => t.Nonce)
-				.IsRequired();
-
 			builder.Property(t => t.Approved)
 				.IsRequired();
 
-			builder.Property(t => t.AssignedById)
+			builder.Property(t => t.Amount)
 				.IsRequired();
 
-			builder.HasOne(t => t.From)
-				.WithMany(m => m.TransactionsFrom)
-				.HasForeignKey(t => t.FromId)
+			builder.Property(t => t.ECP)
+				.IsRequired();
+
+			builder.HasOne(t => t.Sender)
+				.WithMany(m => m.TransactionsSent)
+				.HasForeignKey(t => t.SenderId)
 				.OnDelete(DeleteBehavior.ClientSetNull);
 
-			builder.HasOne(t => t.To)
-				.WithMany(m => m.TransactionsTo)
-				.HasForeignKey(t => t.ToId)
+			builder.HasOne(t => t.Receiver)
+				.WithMany(m => m.TransactionsReceived)
+				.HasForeignKey(t => t.ReceiverId)
 				.OnDelete(DeleteBehavior.ClientSetNull);
 
-			builder.HasOne(t => t.AssignedBy)
-				.WithMany(m => m.TransactionsAssigned)
-				.HasForeignKey(t => t.AssignedById)
+			builder.HasOne(t => t.Block)
+				.WithMany(b => b.Transactions)
+				.HasForeignKey(t => t.BlockId)
 				.OnDelete(DeleteBehavior.ClientSetNull);
 		}
 	}

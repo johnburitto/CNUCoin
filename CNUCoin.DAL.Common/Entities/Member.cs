@@ -44,27 +44,17 @@
 		/// <summary>
 		/// Provides information about member sended transactions.
 		/// </summary>
-		public List<Transaction>? TransactionsFrom { get; set; }
+		public List<Transaction>? TransactionsSent { get; set; }
 
 		/// <summary>
 		/// Provides information about member received transactions.
 		/// </summary>
-		public List<Transaction>? TransactionsTo { get; set; }
-
-		/// <summary>
-		/// Provides information about member assigned by transactions.
-		/// </summary>
-		public List<Transaction>? TransactionsAssigned { get; set; }
+		public List<Transaction>? TransactionsReceived { get; set; }
 
 		/// <summary>
 		/// Provides information about member mined by block chains.
 		/// </summary>
 		public List<Block>? BlocksMained { get; set; }
-		
-		/// <summary>
-		/// Provides information about member assigned by block chains.
-		/// </summary>
-		public List<Block>? BlocksAssigned { get; set; }
 
 		#endregion
 	}
