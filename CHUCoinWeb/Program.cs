@@ -17,6 +17,8 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(buil
 // Add Dependencies
 builder.Services.AddScoped<ICryptoService, CryptoService>();
 builder.Services.AddScoped<IMemberService, MemberService>();
+builder.Services.AddScoped<ITransactionService, TransactionService>();
+builder.Services.AddScoped<IBlockService, BlockService>();
 
 var app = builder.Build();
 
@@ -38,3 +40,12 @@ app.MapControllerRoute(
 	pattern: "{controller=Auth}/{action=Login}/{id?}");
 
 app.Run();
+
+// TODO:
+// Створюється тарнзакція. Конктатинувати: TransactionDate, FromId, ToId, Amount. Підписуємок приватним ключем - Yes
+// Чекати поки прийде майнер і замайнить
+// Дерево Меркля. Будуємо на основі хешів транзакцій, які не внесені до блокчейну - Yes
+// Якщо немає блока, то створюю його - Yes
+// Хеш з дерева Мрекля + хеш останнього блоку + Nonce - Yes
+// Беру суму і обчислюю новий хеш, поки не досягну певної складності(хеш починається з 0) - Yes
+// Створюю новий блок, з обисленим хешем

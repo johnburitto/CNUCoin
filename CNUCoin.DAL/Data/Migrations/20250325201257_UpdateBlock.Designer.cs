@@ -4,6 +4,7 @@ using CNUCoin.DAL.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CNUCoin.DAL.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250325201257_UpdateBlock")]
+    partial class UpdateBlock
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,12 +42,9 @@ namespace CNUCoin.DAL.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<byte[]>("MinerSignature")
+                    b.Property<string>("Nonce")
                         .IsRequired()
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<long>("Nonce")
-                        .HasColumnType("bigint");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PreviousBlockHash")
                         .IsRequired()
@@ -97,6 +97,10 @@ namespace CNUCoin.DAL.Data.Migrations
                     b.Property<Guid?>("BlockId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<byte[]>("ECP")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
                     b.Property<string>("Hash")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -108,10 +112,6 @@ namespace CNUCoin.DAL.Data.Migrations
                     b.Property<string>("SenderId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<byte[]>("SenderSignature")
-                        .IsRequired()
-                        .HasColumnType("varbinary(max)");
 
                     b.Property<DateTime>("TransactionDate")
                         .HasColumnType("datetime2");
@@ -133,8 +133,8 @@ namespace CNUCoin.DAL.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<float>("Amount")
-                        .HasColumnType("real");
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
 
                     b.Property<string>("OwnerId")
                         .IsRequired()

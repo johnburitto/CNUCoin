@@ -20,7 +20,7 @@
 		/// <summary>
 		/// Provides information about transaction amount.
 		/// </summary>
-		public int Amount { get; set; }
+		public float Amount { get; set; }
 
 		#endregion
 

@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CNUCoin.DAL.Common\CNUCoin.DAL.Common.csproj" />
+  </ItemGroup>
+
 </Project>

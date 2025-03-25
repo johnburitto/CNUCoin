@@ -32,6 +32,9 @@ namespace CNUCoin.DAL.Configurations
 			builder.Property(b => b.Nonce)
 				.IsRequired();
 
+			builder.Property(b => b.MinerSignature)
+				.IsRequired();
+
 			builder.HasOne(b => b.Miner)
 				.WithMany(m => m.BlocksMained)
 				.HasForeignKey(b => b.MinerId)

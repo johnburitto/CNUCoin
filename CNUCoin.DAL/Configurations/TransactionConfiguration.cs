@@ -35,7 +35,7 @@ namespace CNUCoin.DAL.Configurations
 			builder.Property(t => t.Amount)
 				.IsRequired();
 
-			builder.Property(t => t.ECP)
+			builder.Property(t => t.SenderSignature)
 				.IsRequired();
 
 			builder.HasOne(t => t.Sender)

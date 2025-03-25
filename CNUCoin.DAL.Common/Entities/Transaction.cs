@@ -15,7 +15,7 @@
 		/// <summary>
 		/// Provides information about block, where transaction is chained.
 		/// </summary>
-		public Guid BlockId { get; set; }
+		public Guid? BlockId { get; set; }
 
 		/// <summary>
 		/// Provides information about transaction date.
@@ -48,9 +48,9 @@
 		public float Amount { get; set; }
 
 		/// <summary>
-		/// Provides information about  sender signature.
+		/// Provides information about sender signature.
 		/// </summary>
-		public byte[]? ECP { get; set; }
+		public byte[]? SenderSignature { get; set; }
 
 		#endregion
 
