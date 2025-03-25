@@ -4,7 +4,7 @@ using CNUCoin.DAL.Common.Entities;
 namespace CNUCoin.BLL.Interfaces
 {
 	/// <summary>
-	/// Describe all methods to manipulate with <see cref="Member"/>
+	/// Describe all methods to manipulate with <see cref="Member"/>.
 	/// </summary>
 	public interface IMemberService
 	{
@@ -21,5 +21,19 @@ namespace CNUCoin.BLL.Interfaces
 		/// <param name="dto">Dto that holds all needed information for login.</param>
 		/// <returns>Wheter member logined or not.</returns>
 		Task<bool> LoginAsync(LoginDto dto);
+
+		/// <summary>
+		/// Get member by his id.
+		/// </summary>
+		/// <param name="id">Member id.</param>
+		/// <returns>Memeber.</returns>
+		Task<Member?> GetByIdAsync(string? id);
+
+		/// <summary>
+		/// Mine blocks.
+		/// </summary>
+		/// <param name="minerId">Miner id.</param>
+		/// <param name="privateKey">Miner private key.</param>
+		Task MineAsync(string minerId, string privateKey);
 	}
 }

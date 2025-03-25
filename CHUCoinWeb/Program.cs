@@ -17,6 +17,8 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(buil
 // Add Dependencies
 builder.Services.AddScoped<ICryptoService, CryptoService>();
 builder.Services.AddScoped<IMemberService, MemberService>();
+builder.Services.AddScoped<ITransactionService, TransactionService>();
+builder.Services.AddScoped<IBlockService, BlockService>();
 
 var app = builder.Build();
 

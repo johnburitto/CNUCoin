@@ -4,6 +4,7 @@ using CNUCoin.BLL.Crypto.Interfaces;
 using CNUCoin.DAL.Data;
 using CNUCoin.DAL.Common.Dtos;
 using CNUCoin.DAL.Common.Entities;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace CNUCoin.BLL.Implementations
@@ -25,6 +26,16 @@ namespace CNUCoin.BLL.Implementations
 		/// </summary>
 		private readonly ICryptoService _cryptoService;
 
+		/// <summary>
+		/// Transaction service.
+		/// </summary>
+		private readonly ITransactionService _transactionService;
+
+		/// <summary>
+		/// Block service.
+		/// </summary>
+		private readonly IBlockService _blockService;
+
 		#endregion
 
 		#region Constructor
@@ -34,23 +45,23 @@ namespace CNUCoin.BLL.Implementations
 		/// </summary>
 		/// <param name="context">App db context.</param>
 		/// <param name="cryptoService">Crypto service.</param>
-		public MemberService(AppDbContext context, ICryptoService cryptoService)
+		public MemberService(AppDbContext context, ICryptoService cryptoService, ITransactionService transactionService, IBlockService blockService)
 		{
 			_context = context;
 			_cryptoService = cryptoService;
+			_transactionService = transactionService;
+			_blockService = blockService;
 		}
 
 		#endregion
 
-		#region Realisation of IMemberService
+		#region Implementation of IMemberService
 
 		/// <inheritdoc/>
 		public Task<bool> LoginAsync(LoginDto dto)
-		{
-			return _context.Members
+			=> _context.Members
 				.Where(m => m.PublicKey == dto.PublicKey && m.Password == _cryptoService.Sha256Hash(dto.Password))
 				.AnyAsync();
-		}
 
 		/// <inheritdoc/>
 		public async Task<(string, string, string)> RegisterAsync(RegisterDto dto)
@@ -68,6 +79,45 @@ namespace CNUCoin.BLL.Implementations
 			await _context.SaveChangesAsync();
 
 			return (member.MemberId, publicKey, privateKey);
+		}
+
+		/// <inheritdoc/>
+		public Task<Member?> GetByIdAsync(string? id)
+			=> _context.Members.Where(m => m.MemberId == id)
+				.Include(m => m.Wallet)
+				.Include(m => m.TransactionsSent)
+				.Include(m => m.TransactionsReceived)
+				.Include(m => m.BlocksMained)
+				.FirstOrDefaultAsync();
+
+		/// <inheritdoc/>
+		public async Task MineAsync(string minerId, string privateKey)
+		{
+			var transactions = await _transactionService.GetNotProcesedTransactionsAsync();
+			var latestBlock = await _blockService.GetLastBlockByDateAsync();
+			var transactionHash = _cryptoService.BuildMerkelRoot(transactions);
+			var latestBlockHash = latestBlock.BlockHash;
+			var newBlockHash = string.Empty;
+			var nonce = 0;
+
+			while (!newBlockHash.StartsWith('0'))
+			{
+				newBlockHash = _cryptoService.Sha256Hash($"{transactionHash}{latestBlockHash}{nonce}");
+				nonce++;
+			}
+
+			var block = await _blockService.CreateBlockAsync(new()
+			{
+				BlockHash = newBlockHash,
+				Nonce = nonce,
+				MinerSignature = _cryptoService.SignData(newBlockHash, privateKey),
+				LastHashDate = DateTime.UtcNow,
+				PreviousBlockHash = latestBlock.BlockHash,
+				MinerId = minerId
+			});
+
+			await _transactionService.SetBlockAsync(transactions, block.BlockId);
+			await _transactionService.ProcessTransactionsAsync(latestBlock.Transactions);
 		}
 
 		#endregion

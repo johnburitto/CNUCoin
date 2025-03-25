@@ -13,33 +13,31 @@ namespace CNUCoin.DAL.Configurations
 		/// <inheritdoc/>
 		public void Configure(EntityTypeBuilder<Block> builder)
 		{
-			builder.Property(bc => bc.BlockId)
+			builder.Property(b => b.BlockId)
 				.ValueGeneratedOnAdd()
 				.IsRequired();
 
-			builder.Property(bc => bc.MinerId)
+			builder.Property(b => b.MinerId)
 				.IsRequired();
 
-			builder.Property(bc => bc.LastHashDate)
+			builder.Property(b => b.LastHashDate)
 				.IsRequired();
 
-			builder.Property(bc => bc.BlockChainHash)
+			builder.Property(b => b.BlockHash)
 				.IsRequired();
 
-			builder.Property(bc => bc.Nonce)
+			builder.Property(b => b.PreviousBlockHash)
 				.IsRequired();
 
-			builder.Property(bc => bc.AssignedById)
+			builder.Property(b => b.Nonce)
+				.IsRequired();
+
+			builder.Property(b => b.MinerSignature)
 				.IsRequired();
 
 			builder.HasOne(b => b.Miner)
 				.WithMany(m => m.BlocksMained)
 				.HasForeignKey(b => b.MinerId)
-				.OnDelete(DeleteBehavior.ClientSetNull);
-			
-			builder.HasOne(b => b.AssignedBy)
-				.WithMany(m => m.BlocksAssigned)
-				.HasForeignKey(b => b.AssignedById)
 				.OnDelete(DeleteBehavior.ClientSetNull);
 		}
 	}

@@ -1,17 +1,10 @@
-﻿namespace CNUCoin.DAL.Common.Entities
+﻿namespace CNUCoin.DAL.Common.Dtos
 {
 	/// <summary>
-	/// Holds information about BlockChain.
+	/// Holds all needed information for creation block.
 	/// </summary>
-	public class Block
+	public class BlockCreateDto
 	{
-		#region Properties
-
-		/// <summary>
-		/// Provides information about block chain id.
-		/// </summary>
-		public Guid BlockId { get; set; }
-		
 		/// <summary>
 		/// Provides information about miner id.
 		/// </summary>
@@ -41,21 +34,5 @@
 		/// Provides information about miner signature.
 		/// </summary>
 		public byte[]? MinerSignature { get; set; }
-
-		#endregion
-
-		#region Relations
-
-		/// <summary>
-		/// Provides information about miner.
-		/// </summary>
-		public Member? Miner { get; set; }
-
-		/// <summary>
-		/// Provides information about transactions in block.
-		/// </summary>
-		public List<Transaction>? Transactions { get; set; }
-
-		#endregion
 	}
 }
