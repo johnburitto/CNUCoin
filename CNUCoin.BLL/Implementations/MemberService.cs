@@ -74,12 +74,23 @@ namespace CNUCoin.BLL.Implementations
 			member.Username = dto.Username;
 			member.Password = _cryptoService.Sha256Hash(dto.Password);
 			member.IsMiner = dto.IsMiner;
+			member.Wallet = new()
+			{
+				OwnerId = member.MemberId,
+				Amount = 100
+			};
 
 			await _context.Members.AddAsync(member);
+			await _context.Wallets.AddAsync(member.Wallet);
 			await _context.SaveChangesAsync();
 
 			return (member.MemberId, publicKey, privateKey);
 		}
+
+		/// <inheritdoc/>
+		public Task<List<Member>> GetAllAsync(string? memberId = "")
+			=> _context.Members.Where(m => m.MemberId != memberId)
+				.ToListAsync();
 
 		/// <inheritdoc/>
 		public Task<Member?> GetByIdAsync(string? id)
@@ -91,7 +102,12 @@ namespace CNUCoin.BLL.Implementations
 				.FirstOrDefaultAsync();
 
 		/// <inheritdoc/>
-		public async Task MineAsync(string minerId, string privateKey)
+		public Task<Member?> GetByPublicKeyAsync(string publicKey)
+			=> _context.Members.Where(m => m.PublicKey == publicKey)
+				.FirstOrDefaultAsync();
+
+		/// <inheritdoc/>
+		public async Task MineAsync(string? minerId, string privateKey)
 		{
 			var transactions = await _transactionService.GetNotProcesedTransactionsAsync();
 			var latestBlock = await _blockService.GetLastBlockByDateAsync();

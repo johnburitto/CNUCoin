@@ -54,40 +54,10 @@
 	font-weight: bold;
 }
 
-.miner-checkbox input[type="checkbox"] {
-	display: none;
-}
-
 .miner-checkbox label {
 	position: relative;
 	padding-left: 30px;
 	cursor: pointer;
-}
-
-.miner-checkbox label::before {
-	content: '';
-	position: absolute;
-	left: 0;
-	top: 50%;
-	transform: translateY(-50%);
-	width: 20px;
-	height: 20px;
-	border: 2px solid #FFD700;
-	border-radius: 4px;
-	background-color: #333;
-	transition: background-color 0.3s;
-}
-
-.miner-checkbox input[type="checkbox"]:checked + label::before {
-	background-color: #FFD700;
-}
-
-.miner-checkbox input[type="checkbox"]:checked + label::after {
-	content: '✓';
-	position: absolute;
-	left: 3px;
-	color: black;
-	font-size: 18px;
 }
 
 input[type="submit"] {
@@ -116,4 +86,8 @@ input[type="submit"]:hover {
 
 .login-link:hover {
 	text-decoration: underline;
+}
+
+.pb-3 {
+	justify-content: center;
 }

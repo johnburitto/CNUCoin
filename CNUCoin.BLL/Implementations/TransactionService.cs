@@ -69,6 +69,8 @@ namespace CNUCoin.BLL.Implementations
 		/// <inheritdoc/>
 		public Task<List<Transaction>> GetNotProcesedTransactionsAsync()
 			=> _context.Transactions.Where(t => t.BlockId == null)
+				.Include(t => t.Sender)
+				.Include(t => t.Receiver)
 				.ToListAsync();
 	
 		/// <inheritdoc/>
@@ -83,7 +85,7 @@ namespace CNUCoin.BLL.Implementations
 		/// <inheritdoc/>
 		public async Task ProcessTransactionsAsync(List<Transaction>? transactions)
 		{
-			foreach (var transaction in transactions)
+			foreach (var transaction in transactions ?? throw new ArgumentNullException(nameof(transactions)))
 			{
 				transaction.Approved = true;
 				transaction.Sender!.Wallet!.Amount -= transaction.Amount;

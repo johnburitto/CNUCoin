@@ -1,17 +1,21 @@
 ﻿using System.IO.Compression;
+using System.Security.Claims;
 
 using CNUCoin.BLL.Interfaces;
 
-using CNUCoin.DAL.Common.Dtos;
 using CNUCoinWeb.Models;
+using CNUCoin.DAL.Common.Dtos;
+
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 using SystemFile = System.IO.File;
 
 namespace CNUCoinWeb.Controllers
 {
 	/// <summary>
-	/// Controller for handking all auth action.
+	/// Controller for handling all auth action.
 	/// </summary>
 	public class AuthController : Controller
 	{
@@ -49,10 +53,10 @@ namespace CNUCoinWeb.Controllers
 		}
 
 		/// <summary>
-		/// Login action.
+		/// Login action. Process.
 		/// </summary>
 		/// <param name="model">Login model.</param>
-		/// <returns>If login successfully main page, and login view if not.</returns>
+		/// <returns>If login successfully home page, and login view if not.</returns>
 		[HttpPost]
 		public async Task<IActionResult> Login(LoginModel model)
 		{
@@ -69,10 +73,32 @@ namespace CNUCoinWeb.Controllers
 				Password = model.Password
 			}))
 			{
+				var member = await _memberService.GetByPublicKeyAsync(publicKey);
+				var claims = new List<Claim>()
+				{
+					new(ClaimTypes.NameIdentifier, member!.MemberId ?? ""),
+					new(ClaimTypes.Role, member.IsMiner ? "Miner" : "User"),
+				};
+				var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+				var principal = new ClaimsPrincipal(identity);
+
+				await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+
 				return Redirect("/Home/Index");
 			}
 
 			return RedirectToAction("Login");
+		}
+
+		/// <summary>
+		/// Logout action.
+		/// </summary>
+		/// <returns>Home page.</returns>
+		public async Task<IActionResult> Logout()
+		{
+			await HttpContext.SignOutAsync();
+
+			return Redirect("/Home/Index");
 		}
 
 		/// <summary>
@@ -96,7 +122,7 @@ namespace CNUCoinWeb.Controllers
 
 			if (!string.IsNullOrEmpty(memberId))
 			{
-				var zipPath = $"{Directory.GetCurrentDirectory()}/{memberId}";
+				var zipPath = $"{memberId[7..]}";
 				var zipFilePath = Path.Combine(zipPath, "keys.zip");
 
 				if (!Directory.Exists(zipPath))

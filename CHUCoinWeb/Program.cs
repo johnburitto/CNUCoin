@@ -6,6 +6,7 @@ using CNUCoin.BLL.Crypto.Interfaces;
 using CNUCoin.BLL.Crypto.Implementations;
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +21,13 @@ builder.Services.AddScoped<IMemberService, MemberService>();
 builder.Services.AddScoped<ITransactionService, TransactionService>();
 builder.Services.AddScoped<IBlockService, BlockService>();
 
+// Add Auth
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+	.AddCookie(options =>
+	{
+		options.LoginPath = "/Auth/Login";
+	});
+
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())
@@ -33,10 +41,11 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
 	name: "default",
-	pattern: "{controller=Auth}/{action=Login}/{id?}");
+	pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

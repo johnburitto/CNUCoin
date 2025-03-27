@@ -9,7 +9,7 @@
         <input type="text" name="Username" id="Username" placeholder="Username" required>
         <input type="password" name="Password" id="Password" placeholder="Password" required>
         <div class="miner-checkbox">
-            <input type="checkbox" name="IsMiner" id="IsMiner">
+            @(Html.CheckBoxFor(m => m.IsMiner))
             <label for="IsMiner">Is Miner?</label>
         </div>
         <input type="submit" id="register-button" value="Register">
