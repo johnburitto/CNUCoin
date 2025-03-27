@@ -39,12 +39,18 @@ namespace CNUCoin.BLL.Implementations
 		{
 			var block = await _context.Blocks.OrderByDescending(b => b.LastHashDate)
 				.Include(b => b.Transactions)
+				.ThenInclude(t => t.Sender)
+				.ThenInclude(m => m.Wallet)
+				.Include(b => b.Transactions)
+				.ThenInclude(t => t.Receiver)
+				.ThenInclude(m => m.Wallet)
 				.FirstOrDefaultAsync();
 
 			return block ?? new()
 			{
 				BlockHash = "0",
-				Nonce = 0
+				Nonce = 0,
+				Transactions = []
 			};
 		}
 

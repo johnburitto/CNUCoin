@@ -23,17 +23,30 @@ namespace CNUCoin.BLL.Interfaces
 		Task<bool> LoginAsync(LoginDto dto);
 
 		/// <summary>
+		/// Get all members.
+		/// </summary>
+		/// <returns>List of members.</returns>
+		Task<List<Member>> GetAllAsync(string? memberId = "");
+
+		/// <summary>
 		/// Get member by his id.
 		/// </summary>
 		/// <param name="id">Member id.</param>
-		/// <returns>Memeber.</returns>
+		/// <returns>Member.</returns>
 		Task<Member?> GetByIdAsync(string? id);
+
+		/// <summary>
+		/// Get member by public key.
+		/// </summary>
+		/// <param name="publicKey">Public key.</param>
+		/// <returns>Member.</returns>
+		Task<Member?> GetByPublicKeyAsync(string publicKey);
 
 		/// <summary>
 		/// Mine blocks.
 		/// </summary>
 		/// <param name="minerId">Miner id.</param>
 		/// <param name="privateKey">Miner private key.</param>
-		Task MineAsync(string minerId, string privateKey);
+		Task MineAsync(string? minerId, string privateKey);
 	}
 }

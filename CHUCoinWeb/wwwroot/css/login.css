@@ -87,3 +87,7 @@ input[type="submit"]:hover,
 .register-button:hover {
 	background-color: #FFC107;
 }
+
+.pb-3 {
+	justify-content: center;
+}

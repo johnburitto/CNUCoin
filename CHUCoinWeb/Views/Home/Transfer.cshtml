@@ -1,0 +1,37 @@
+﻿@model TransferModel
+
+<link rel="stylesheet" href="~/css/main.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/transfer.css" asp-append-version="true" />
+
+<div class="sidebar">
+    <h2>Control Panel</h2>
+    <a href="/Home/Transfer">Transfer</a>
+    @{
+        if (User.IsInRole("Miner"))
+        {
+            <a href="/Home/Mine">Mine</a>
+        }
+    }
+    <a href="/Auth/Logout">Logout</a>
+</div>
+<div class="transfer-container">
+    <form method="post" enctype="multipart/form-data">
+        <div>
+            <select name="ReceiverId" id="ReceiverId">
+                @{
+                    foreach (var member in Model.Members ?? []) 
+                    {
+                        <option value="@member.MemberId">@member.MemberId</option>
+                    }
+                }
+            </select>
+        </div>
+        <div>
+            <input type="number" name="Amount" id="Amount" placeholder="Amount" required />
+        </div>
+        <div>
+            <input type="file" name="PrivateKeyFile" id="PrivateKeyFile" accept=".pem" required />
+        </div>
+        <input type="submit" value="Submit" />
+    </form>
+<div/>
