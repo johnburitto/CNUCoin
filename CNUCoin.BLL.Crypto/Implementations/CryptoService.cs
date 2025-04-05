@@ -19,6 +19,7 @@ namespace CNUCoin.BLL.Crypto.Implementations
 		#endregion
 
 		#region Realisation of ICryptoService
+
 		/// <inheritdoc/>
 		public (string, string) GenerateRsaKeys()
 		{
