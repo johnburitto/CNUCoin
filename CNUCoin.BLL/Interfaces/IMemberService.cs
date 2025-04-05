@@ -48,5 +48,12 @@ namespace CNUCoin.BLL.Interfaces
 		/// <param name="minerId">Miner id.</param>
 		/// <param name="privateKey">Miner private key.</param>
 		Task MineAsync(string? minerId, string privateKey);
+
+		/// <summary>
+		/// Add reward to miner wallet.
+		/// </summary>
+		/// <param name="minerId">Miner id.</param>
+		/// <param name="reward">Reward.</param>
+		Task AddMinerRewardAsync(string? minerId, float reward);
 	}
 }

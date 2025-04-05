@@ -115,6 +115,7 @@ namespace CNUCoin.BLL.Implementations
 			var latestBlockHash = latestBlock.BlockHash;
 			var newBlockHash = string.Empty;
 			var nonce = 0;
+			var transactionAmount = transactions.Select(t => t.Amount).Sum();
 
 			while (!newBlockHash.StartsWith('0'))
 			{
@@ -134,6 +135,20 @@ namespace CNUCoin.BLL.Implementations
 
 			await _transactionService.SetBlockAsync(transactions, block.BlockId);
 			await _transactionService.ProcessTransactionsAsync(latestBlock.Transactions);
+			await AddMinerRewardAsync(minerId, transactionAmount / 100);
+		}
+
+		/// <inheritdoc/>
+		public async Task AddMinerRewardAsync(string? minerId, float reward)
+		{
+			var wallet = _context.Wallets.FirstOrDefault(w => w.OwnerId == minerId);
+			
+			if (wallet != null)
+			{
+				wallet.Amount += reward;
+
+				await _context.SaveChangesAsync();
+			}
 		}
 
 		#endregion
