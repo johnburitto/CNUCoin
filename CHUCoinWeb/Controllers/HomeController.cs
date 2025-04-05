@@ -27,6 +27,11 @@ namespace CNUCoinWeb.Controllers
 		/// </summary>
 		private readonly ITransactionService _transactionService;
 
+		/// <summary>
+		/// Block service.
+		/// </summary>
+		private readonly IBlockService _blockService;
+
 		#endregion
 
 		#region Constructor
@@ -35,10 +40,11 @@ namespace CNUCoinWeb.Controllers
 		/// Inizialise instance of <see cref="HomeController"/>.
 		/// </summary>
 		/// <param name="memberService">Member service.</param>
-		public HomeController(IMemberService memberService, ITransactionService transactionService)
+		public HomeController(IMemberService memberService, ITransactionService transactionService, IBlockService blockService)
 		{
 			_memberService = memberService;
 			_transactionService = transactionService;
+			_blockService = blockService;
 		}
 
 		#endregion
@@ -124,6 +130,15 @@ namespace CNUCoinWeb.Controllers
 			await _memberService.MineAsync(minerId, privateKey);
 
 			return RedirectToAction("Mine");
+		}
+
+		/// <summary>
+		/// Blocks action.
+		/// </summary>
+		/// <returns>Blocks page.</returns>
+		public async Task<IActionResult> Blocks()
+		{
+			return View(await _blockService.GetAllAsync());
 		}
 
 		#endregion

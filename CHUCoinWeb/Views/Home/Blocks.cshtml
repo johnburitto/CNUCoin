@@ -1,0 +1,31 @@
+﻿@model List<Block>
+@{
+    ViewData["Title"] = "Blocks";
+}
+
+<link rel="stylesheet" href="~/css/main.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/block.css" asp-append-version="true">
+
+<div class="sidebar">
+    <h2>Control Panel</h2>
+    <a href="/Home/Transfer">Transfer</a>
+    <a href="/Home/Blocks">Blocks</a>
+    @{
+        if (User.IsInRole("Miner"))
+        {
+            <a href="/Home/Mine">Mine</a>
+        }
+    }
+    <a href="/Auth/Logout">Logout</a>
+</div>
+<div class="card-container">
+    @foreach (var block in Model)
+    {
+        <div class="card">
+            <p><span>Block Hash: </span>@block.BlockHash</p>
+            <p><span>Date Created: </span>@block.LastHashDate.ToString("g")</p>
+            <p><span>Miner ID: </span>@block.MinerId</p>
+            <p><span>Signature: </span>@Convert.ToBase64String(block.MinerSignature ?? [])</p>
+        </div>
+    }
+</div>

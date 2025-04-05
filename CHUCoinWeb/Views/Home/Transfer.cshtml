@@ -1,4 +1,7 @@
 ﻿@model TransferModel
+@{
+    ViewData["Title"] = "Transfer";
+}
 
 <link rel="stylesheet" href="~/css/main.css" asp-append-version="true" />
 <link rel="stylesheet" href="~/css/transfer.css" asp-append-version="true" />
@@ -6,6 +9,7 @@
 <div class="sidebar">
     <h2>Control Panel</h2>
     <a href="/Home/Transfer">Transfer</a>
+    <a href="/Home/Blocks">Blocks</a>
     @{
         if (User.IsInRole("Miner"))
         {
@@ -15,6 +19,7 @@
     <a href="/Auth/Logout">Logout</a>
 </div>
 <div class="transfer-container">
+    <h2>On balance @Model.Sender!.Wallet!.Amount @(Model.Sender!.Wallet!.Amount == 1 ? "CNUCoin" : "CNUCoins")</h2>
     <form method="post" enctype="multipart/form-data">
         <div>
             <select name="ReceiverId" id="ReceiverId">

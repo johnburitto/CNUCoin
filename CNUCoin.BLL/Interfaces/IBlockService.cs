@@ -20,5 +20,11 @@ namespace CNUCoin.BLL.Interfaces
 		/// <param name="dto">Dto that holds all needed information for block creation.</param>
 		/// <returns>Created block.</returns>
 		Task<Block> CreateBlockAsync(BlockCreateDto dto);
+
+		/// <summary>
+		/// Get all blocks.
+		/// </summary>
+		/// <returns>List of blocks./returns>
+		Task<List<Block>> GetAllAsync();
 	}
 }

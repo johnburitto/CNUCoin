@@ -1,4 +1,7 @@
 ﻿@model MineModel
+@{
+    ViewData["Title"] = "Mine";
+}
 
 <link rel="stylesheet" href="~/css/main.css" asp-append-version="true" />
 <link rel="stylesheet" href="~/css/mine.css" asp-append-version="true" />
@@ -6,6 +9,7 @@
 <div class="sidebar">
     <h2>Control Panel</h2>
     <a href="/Home/Transfer">Transfer</a>
+    <a href="/Home/Blocks">Blocks</a>
     @{
         if (User.IsInRole("Miner"))
         {

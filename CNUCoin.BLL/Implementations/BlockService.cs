@@ -73,6 +73,10 @@ namespace CNUCoin.BLL.Implementations
 			return block;
 		}
 
+		/// <inheritdoc/>
+		public Task<List<Block>> GetAllAsync()
+			=> _context.Blocks.ToListAsync();
+
 		#endregion
 	}
 }
